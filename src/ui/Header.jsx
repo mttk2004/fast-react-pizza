@@ -6,4 +6,15 @@
  *  "Family is where life begins and love never ends."
  */
 
+import { Link } from 'react-router-dom';
 
+
+function Header() {
+	return <header>
+		<Link to={'/'}>Fast React Pizza Co.</Link>
+		
+		<p>Kiet</p>
+	</header>;
+}
+
+export default Header;

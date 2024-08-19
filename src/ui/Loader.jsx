@@ -7,3 +7,8 @@
  */
 
 
+function Loader() {
+	return <div className="loader">&nbsp;</div>;
+}
+
+export default Loader;

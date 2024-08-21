@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ],
+  "extends": [
+    "plugin:prettier-plugin-tailwindcss/recommended"
+  ],
+  "rules": {
+    "prettier-plugin-tailwindcss/no-custom-classname": "off"
+  },
+  "singleQuote": true
+}

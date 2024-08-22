@@ -13,7 +13,7 @@ import Username from '../features/user/Username.jsx';
 function Header() {
   return (
     <header className="flex items-center justify-between gap-4 space-y-1 border-b-2 border-stone-400 bg-yellow-400 px-3 py-2 uppercase text-stone-900 sm:space-y-2 sm:px-4 sm:py-3 md:px-6 md:py-4">
-      <Link to={'/'} className="font-semibold tracking-widest">
+      <Link to={'/'} className="font-semibold leading-tight tracking-widest">
         Fast React Pizza Co.
       </Link>
       <SearchOrder />

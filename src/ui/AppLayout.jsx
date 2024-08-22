@@ -20,7 +20,7 @@ function AppLayout() {
       {isLoading && <Loader />}
       <Header />
 
-      <main className="lg:px-15pc px-2.5pc py-1 sm:px-5pc sm:py-4 md:px-10pc md:py-6 lg:py-8">
+      <main className="px-2.5pc py-2 sm:px-5pc sm:py-4 md:px-10pc md:py-6 lg:px-15pc lg:py-8">
         <Outlet />
       </main>
 

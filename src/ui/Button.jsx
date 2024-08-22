@@ -15,6 +15,12 @@ function Button({ children, disabled, to, type }) {
     small: base + ' text-xs px-3 py-1 md:text-sm md:px-4 md:py-2',
     primary:
       base + ' text-sm px-5 py-2 sm:px-6 sm:py-3 md:text-base md:px-8 md:py-4',
+    secondary:
+      'rounded-full font-medium uppercase text-stone-600 border-2 border-stone-400' +
+      ' transition-colors' +
+      ' duration-300 hover:bg-stone-300 hover:text-stone-800 focus:bg-stone-300' +
+      ' focus:outline-none focus:ring focus:ring-stone-300 focus:ring-offset-2' +
+      ' disabled:cursor-not-allowed text-sm px-5 py-2 sm:px-6 sm:py-3 md:text-base md:px-8 md:py-4',
   };
 
   if (to)

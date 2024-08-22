@@ -34,9 +34,9 @@ function Cart() {
     <div>
       <LinkButton to="/menu">&larr; Back to menu</LinkButton>
 
-      <h2 className="mt-10 text-lg font-medium">Your cart, %NAME%</h2>
+      <h2 className="mt-4 text-lg font-medium sm:mt-8">Your cart, %NAME%</h2>
 
-      <ul className="divide-y divide-stone-200 border-b border-stone-200">
+      <ul className="divide-y divide-stone-300 border-b border-stone-300">
         {cart.map((item) => (
           <CartItem item={item} key={item.pizzaId} />
         ))}
@@ -46,7 +46,7 @@ function Cart() {
         <Button to="/order/new" type="primary">
           Order pizzas
         </Button>
-        <button>Clear cart</button>
+        <Button type="secondary">Clear cart</Button>
       </div>
     </div>
   );

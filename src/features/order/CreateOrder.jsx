@@ -42,31 +42,53 @@ function CreateOrder() {
 
   return (
     <div>
-      <h2>Ready to order? Let's go!</h2>
+      <h2 className="mb-6 mt-3 text-xl font-medium">
+        Ready to order? Let's go!
+      </h2>
 
       {/*<Form method='POST' action='/order/new'>*/}
-      <Form method="POST">
-        <div>
-          <label>First Name</label>
-          <input type="text" name="customer" required className="input" />
+      <Form method="POST" className="space-y-3 sm:space-y-4">
+        <div className="flex flex-col gap-1 sm:flex-row">
+          <label className="inline-flex translate-x-3 items-center justify-start sm:min-w-40 sm:translate-x-0">
+            First Name
+          </label>
+          <input
+            type="text"
+            name="customer"
+            required
+            className="input w-full"
+          />
         </div>
 
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input type="tel" name="phone" required className="input" />
-            {formErrors?.phone && <p>{formErrors.phone}</p>}
+        <div className="flex flex-col gap-1 sm:flex-row">
+          <label className="inline-flex translate-x-3 items-center justify-start sm:min-w-40 sm:translate-x-0">
+            Phone number
+          </label>
+          <div className="grow">
+            <input type="tel" name="phone" required className="input w-full" />
+            {formErrors?.phone && (
+              <p className="inline-block translate-x-3 text-xs text-red-700 sm:translate-x-5">
+                {formErrors.phone}
+              </p>
+            )}
           </div>
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
-            <input type="text" name="address" required className="input" />
+        <div className="flex flex-col gap-1 sm:flex-row">
+          <label className="inline-flex translate-x-3 items-center justify-start sm:min-w-40 sm:translate-x-0">
+            Address
+          </label>
+          <div className="grow">
+            <input
+              type="text"
+              name="address"
+              required
+              className="input w-full"
+            />
           </div>
         </div>
 
-        <div>
+        <div className="flex items-center justify-start gap-4">
           <input
             type="checkbox"
             name="priority"
@@ -80,8 +102,10 @@ function CreateOrder() {
 
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
 
-        <div>
-          <Button>{isSubmitting ? 'Progressing' : 'Order now'}</Button>
+        <div className="mt-12 text-center">
+          <Button type="primary">
+            {isSubmitting ? 'Progressing' : 'Order now'}
+          </Button>
         </div>
       </Form>
     </div>

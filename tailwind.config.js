@@ -13,6 +13,13 @@ export default {
         '10pc': '10%',
         '15pc': '15%',
       },
+      screens: {
+        sm: '540px',
+        // => @media (min-width: 540px) { ... }
+      },
+      fontSize: {
+        '2xs': '0.625rem',
+      },
     },
   },
   plugins: [],

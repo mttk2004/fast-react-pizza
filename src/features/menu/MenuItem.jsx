@@ -5,11 +5,11 @@ function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
   return (
-    <li className="flex gap-4 py-2 md:py-3 lg:py-4">
+    <li className="flex gap-4 py-1.5 md:py-2 xl:py-2.5">
       <img
         src={imageUrl}
         alt={name}
-        className={`h-24 rounded transition-all duration-300 hover:scale-110 sm:h-28 md:h-32 ${
+        className={`h-20 rounded transition-all duration-300 hover:scale-110 md:h-24 ${
           soldOut ? 'opacity-75' + ' grayscale' : ''
         }`}
       />
@@ -22,7 +22,9 @@ function MenuItem({ pizza }) {
           {!soldOut ? (
             <p>{formatCurrency(unitPrice)}</p>
           ) : (
-            <p className="text-sm uppercase text-stone-500">Sold out</p>
+            <p className="text-sm font-medium uppercase text-stone-500">
+              Sold out
+            </p>
           )}
           <Button disabled={soldOut} type="small">
             Add to cart

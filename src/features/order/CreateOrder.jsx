@@ -1,7 +1,7 @@
-// import { useState }                                     from 'react';
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { createOrder } from '../../services/apiRestaurant.js';
 import Button from '../../ui/Button.jsx';
+import { useSelector } from 'react-redux';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -36,32 +36,33 @@ const fakeCart = [
 function CreateOrder() {
   const formErrors = useActionData();
   const isSubmitting = useNavigation().state === 'submitting';
+  const name = useSelector((store) => store.user.name);
 
-  // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
 
   return (
     <div>
-      <h2 className="mb-6 mt-3 text-xl font-medium">
+      <h2 className="mb-6 mt-3 text-balance text-center text-xl font-medium">
         Ready to order? Let's go!
       </h2>
 
       {/*<Form method='POST' action='/order/new'>*/}
       <Form method="POST" className="space-y-3 sm:space-y-4">
         <div className="flex flex-col gap-1 sm:flex-row">
-          <label className="inline-flex translate-x-3 items-center justify-start sm:min-w-40 sm:translate-x-0">
+          <label className="inline-flex items-center justify-start pl-3 sm:min-w-40 sm:translate-x-0 sm:p-0">
             First Name
           </label>
           <input
             type="text"
             name="customer"
+            defaultValue={name}
             required
             className="input w-full"
           />
         </div>
 
         <div className="flex flex-col gap-1 sm:flex-row">
-          <label className="inline-flex translate-x-3 items-center justify-start sm:min-w-40 sm:translate-x-0">
+          <label className="inline-flex items-center justify-start pl-3 sm:min-w-40 sm:translate-x-0 sm:p-0">
             Phone number
           </label>
           <div className="grow">
@@ -75,7 +76,7 @@ function CreateOrder() {
         </div>
 
         <div className="flex flex-col gap-1 sm:flex-row">
-          <label className="inline-flex translate-x-3 items-center justify-start sm:min-w-40 sm:translate-x-0">
+          <label className="inline-flex items-center justify-start pl-3 sm:min-w-40 sm:translate-x-0 sm:p-0">
             Address
           </label>
           <div className="grow">
@@ -88,14 +89,12 @@ function CreateOrder() {
           </div>
         </div>
 
-        <div className="flex items-center justify-start gap-4">
+        <div className="flex items-center justify-start gap-4 pl-3 sm:p-0">
           <input
             type="checkbox"
             name="priority"
             id="priority"
             className="h-5 w-5 accent-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-offset-1"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
           />
           <label htmlFor="priority">Want to yo give your order priority?</label>
         </div>

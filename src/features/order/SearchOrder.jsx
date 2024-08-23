@@ -21,14 +21,14 @@ function SearchOrder() {
   }
 
   return (
-    <div className="inline-flex h-full -translate-y-0.5 items-center justify-center sm:-translate-y-1">
+    <div className="inline-flex h-10 -translate-y-0.5 items-center justify-center sm:-translate-y-1">
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Search order..."
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="h-full w-36 rounded-full bg-yellow-100 px-4 py-2 placeholder:text-stone-500 focus:outline-none focus:ring focus:ring-yellow-600 focus:ring-opacity-20 focus:ring-offset-1 sm:w-64"
+          className="h-full w-36 rounded-full bg-yellow-100 px-2 py-1.5 placeholder:text-stone-500 focus:outline-none focus:ring focus:ring-yellow-600 focus:ring-opacity-20 focus:ring-offset-1 sm:w-64 md:w-72 lg:w-96"
         />
       </form>
     </div>

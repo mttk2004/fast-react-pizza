@@ -5,9 +5,13 @@
  *  Author: Mai Tran Tuan Kiet
  *  "Family is where life begins and love never ends."
  */
+import { useSelector } from 'react-redux';
 
 function Username() {
-  return <p className="text-sm">Kiet</p>;
+  const name = useSelector((store) => store.user.name);
+  console.log(name);
+
+  return <p className="text-sm">{name}</p>;
 }
 
 export default Username;

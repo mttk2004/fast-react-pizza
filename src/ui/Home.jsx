@@ -1,10 +1,13 @@
 import CreateUser from '../features/user/CreateUser.jsx';
+import { useSelector } from 'react-redux';
+import Button from './Button.jsx';
 
 function Home() {
+  const name = useSelector((store) => store.user.name);
+
   return (
-    // rounded bg-blue-500 px-4 py-2 text-xl text-center text-yellow-600
-    <div className="space-y-6 px-6 py-4 text-center sm:px-9 sm:py-6">
-      <h1 className="text-xl font-semibold text-stone-900">
+    <div className="space-y-10 px-6 py-4 text-center sm:px-9 sm:py-6">
+      <h1 className="text-xl font-semibold text-stone-900 md:text-2xl">
         The best pizza.
         <br />
         <span className="le line font-bold uppercase tracking-wide text-yellow-600 [text-shadow:1px_1px_1px_#a16207]">
@@ -12,7 +15,15 @@ function Home() {
         </span>
       </h1>
 
-      <CreateUser />
+      {!name ? (
+        <CreateUser />
+      ) : (
+        <div>
+          <Button to="/menu" type="primary">
+            Go to menu &rarr;
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

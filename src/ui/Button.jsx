@@ -12,12 +12,12 @@ function Button({ children, disabled, to, type }) {
     'rounded-full bg-yellow-400 font-medium uppercase text-stone-900 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed';
 
   const styles = {
-    small: base + ' text-xs px-3 py-1 md:text-sm md:px-4 md:py-2',
+    small: base + ' text-xs px-3 py-1 lg:text-sm md:px-4 md:py-1.5',
     primary:
       base + ' text-sm px-5 py-2 sm:px-6 sm:py-3 md:text-base md:px-8 md:py-4',
     secondary:
-      'rounded-full font-medium uppercase text-stone-600 border-2 border-stone-400' +
-      ' transition-colors' +
+      'rounded-full font-medium uppercase text-stone-600' +
+      ' transition-colors [box-shadow:inset_0_0_2px_black]' +
       ' duration-300 hover:bg-stone-300 hover:text-stone-800 focus:bg-stone-300' +
       ' focus:outline-none focus:ring focus:ring-stone-300 focus:ring-offset-2' +
       ' disabled:cursor-not-allowed text-sm px-5 py-2 sm:px-6 sm:py-3 md:text-base md:px-8 md:py-4',

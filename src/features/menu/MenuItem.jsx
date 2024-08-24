@@ -32,7 +32,11 @@ function MenuItem({ pizza }) {
         }`}
       />
       <div className="flex grow flex-col">
-        <p className="text-lg">{name}</p>
+        <p
+          className={`font-medium ${soldOut ? 'text-stone-500' : 'text-stone-800'}`}
+        >
+          {name}
+        </p>
         <p className="text-xs capitalize italic leading-tight text-stone-600 md:text-sm">
           {ingredients.join(', ')}
         </p>

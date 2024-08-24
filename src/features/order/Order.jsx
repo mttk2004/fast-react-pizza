@@ -6,8 +6,10 @@ import {
   formatDate,
 } from '../../utils/helpers';
 import { getOrder } from '../../services/apiRestaurant.js';
-import { useLoaderData } from 'react-router-dom';
+import { useFetcher, useLoaderData } from 'react-router-dom';
 import OrderItem from './OrderItem.jsx';
+import { useEffect } from 'react';
+import UpdateOrder from './UpdateOrder.jsx';
 
 function Order() {
   const order = useLoaderData();
@@ -23,6 +25,12 @@ function Order() {
     cart,
   } = order;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
+
+  const fetcher = useFetcher();
+
+  useEffect(() => {
+    if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/menu');
+  }, [fetcher]);
 
   return (
     <div className="space-y-6">
@@ -41,7 +49,7 @@ function Order() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 rounded bg-stone-200 px-5 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded bg-stone-200 px-4 py-2 md:px-6 md:py-3 lg:px-8 lg:py-4">
         <p className="font-medium">
           {deliveryIn >= 0
             ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
@@ -52,14 +60,22 @@ function Order() {
         </p>
       </div>
 
-      <ul className="divide-y divide-stone-300">
+      <ul className="divide-y divide-stone-300 px-4 md:px-6 lg:px-8">
         {cart.map((item) => (
-          <OrderItem item={item} key={item.pizzaId} />
+          <OrderItem
+            item={item}
+            key={item.pizzaId}
+            ingredients={
+              fetcher.data?.find((el) => el.id === item.pizzaId)?.ingredients ??
+              []
+            }
+            isLoadingIngredients={fetcher.state === 'loading'}
+          />
         ))}
       </ul>
 
-      <div className="space-y-2 rounded bg-stone-200 px-5 py-3">
-        <p className="text-sm font-medium text-stone-700">
+      <div className="space-y-1 rounded bg-stone-200 px-4 py-2 md:space-y-2 md:px-6 md:py-3 lg:px-8 lg:py-4">
+        <p className="font-medium text-stone-700">
           Price pizza: {formatCurrency(orderPrice)}
         </p>
         {priority && (
@@ -67,10 +83,11 @@ function Order() {
             Price priority: {formatCurrency(priorityPrice)}
           </p>
         )}
-        <p className="font-semibold">
+        <p className="font-medium">
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+      {!priority && <UpdateOrder order={order} />}
     </div>
   );
 }

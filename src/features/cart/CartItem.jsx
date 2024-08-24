@@ -12,7 +12,9 @@ function CartItem({ item }) {
         <span>{name}</span>
       </p>
       <div className="flex items-baseline justify-between sm:space-x-4">
-        <p className="font-medium">{formatCurrency(totalPrice)}</p>
+        <p className="font-medium text-stone-700">
+          {formatCurrency(totalPrice)}
+        </p>
         <UpdateItemQuantity pizzaId={pizzaId} />
         <DeleteItemButton pizzaId={pizzaId}>Delete</DeleteItemButton>
       </div>

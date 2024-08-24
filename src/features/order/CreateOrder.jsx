@@ -18,16 +18,22 @@ function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
   const formErrors = useActionData();
   const isSubmitting = useNavigation().state === 'submitting';
-  const name = useSelector((store) => store.user.name);
+  const {
+    name,
+    status: addressStatus,
+    position,
+    address,
+    error: addressError,
+  } = useSelector((store) => store.user);
   const cart = useSelector(getCart);
+  const dispatch = useDispatch();
   const totalCartPrice = useSelector(getTotalCartPrice);
   const priorityPrice = totalCartPrice * 0.15;
   const totalPrice = totalCartPrice + (withPriority ? priorityPrice : 0);
-  const dispatch = useDispatch();
+  const isLoadingAddress = addressStatus === 'loading';
 
   return (
     <div>
-      {/*<button onClick={() => dispatch(fetchAddress())}>Heelo</button>*/}
       <h2 className="mb-6 mt-3 text-balance text-center text-xl font-medium">
         Ready to order? Let's go!
       </h2>
@@ -36,7 +42,7 @@ function CreateOrder() {
       <Form method="POST" className="space-y-3 sm:space-y-4">
         <div className="flex flex-col gap-1 sm:flex-row">
           <label className="inline-flex items-center justify-start pl-3 sm:min-w-40 sm:translate-x-0 sm:p-0">
-            First Name
+            Full Name
           </label>
           <input
             type="text"
@@ -65,13 +71,34 @@ function CreateOrder() {
           <label className="inline-flex items-center justify-start pl-3 sm:min-w-40 sm:translate-x-0 sm:p-0">
             Address
           </label>
-          <div className="grow">
+          <div className="relative grow">
             <input
               type="text"
               name="address"
               required
               className="input w-full"
+              disabled={isLoadingAddress}
+              defaultValue={address}
             />
+            {!addressError && (
+              <p className="inline-block translate-x-3 text-xs text-red-700 sm:translate-x-5">
+                {addressError}
+              </p>
+            )}
+            <span className="top-50 absolute right-1 top-0.5 sm:top-1.5 md:top-1">
+              {!address && (
+                <Button
+                  disabled={isLoadingAddress}
+                  type="small"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(fetchAddress());
+                  }}
+                >
+                  Auto
+                </Button>
+              )}
+            </span>
           </div>
         </div>
 
@@ -88,9 +115,18 @@ function CreateOrder() {
         </div>
 
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+        <input
+          type="hidden"
+          name="position"
+          value={
+            position.latitude && position.longitude
+              ? `${position.latitude},${position.longitude}`
+              : ''
+          }
+        />
 
         <div className="mt-12 text-center">
-          <Button type="primary">
+          <Button disabled={isLoadingAddress || isSubmitting} type="primary">
             {isSubmitting
               ? 'Progressing'
               : `Order now from ${formatCurrency(totalPrice)}`}
@@ -123,7 +159,7 @@ async function action({ request }) {
   store.dispatch(clearCart());
 
   // redirect to order page
-  return redirect(`/order/${newOrder.id}`); //http://localhost:5173/order/XB4113
+  return redirect(`/order/${newOrder.id}`);
 }
 
 export { action };

@@ -8,7 +8,7 @@
 
 function Loader() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-stone-200/15 backdrop-blur-sm">
+    <div className="fixed inset-0 z-10 flex items-center justify-center bg-stone-200/15 backdrop-blur-sm">
       <div className="loader">&nbsp;</div>;
     </div>
   );

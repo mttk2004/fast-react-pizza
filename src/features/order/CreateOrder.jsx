@@ -1,7 +1,12 @@
 import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { createOrder } from '../../services/apiRestaurant.js';
 import Button from '../../ui/Button.jsx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice.js';
+import store from '../../store.js';
+import { formatCurrency } from '../../utils/helpers.js';
+import { useState } from 'react';
+import { fetchAddress } from '../user/userSlice.js';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -9,39 +14,20 @@ const isValidPhone = (str) =>
     str,
   );
 
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: 'Mediterranean',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: 'Vegetale',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: 'Spinach and Mushroom',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
-
 function CreateOrder() {
+  const [withPriority, setWithPriority] = useState(false);
   const formErrors = useActionData();
   const isSubmitting = useNavigation().state === 'submitting';
   const name = useSelector((store) => store.user.name);
-
-  const cart = fakeCart;
+  const cart = useSelector(getCart);
+  const totalCartPrice = useSelector(getTotalCartPrice);
+  const priorityPrice = totalCartPrice * 0.15;
+  const totalPrice = totalCartPrice + (withPriority ? priorityPrice : 0);
+  const dispatch = useDispatch();
 
   return (
     <div>
+      {/*<button onClick={() => dispatch(fetchAddress())}>Heelo</button>*/}
       <h2 className="mb-6 mt-3 text-balance text-center text-xl font-medium">
         Ready to order? Let's go!
       </h2>
@@ -95,15 +81,19 @@ function CreateOrder() {
             name="priority"
             id="priority"
             className="h-5 w-5 accent-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-offset-1"
+            value={withPriority}
+            onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label htmlFor="priority">Want to give your order priority?</label>
         </div>
 
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
 
         <div className="mt-12 text-center">
           <Button type="primary">
-            {isSubmitting ? 'Progressing' : 'Order now'}
+            {isSubmitting
+              ? 'Progressing'
+              : `Order now from ${formatCurrency(totalPrice)}`}
           </Button>
         </div>
       </Form>
@@ -118,7 +108,7 @@ async function action({ request }) {
   const order = {
     ...data,
     cart: JSON.parse(data.cart),
-    priority: !!data.priority,
+    priority: data.priority === 'true',
   };
 
   // check if phone number is valid
@@ -128,6 +118,9 @@ async function action({ request }) {
 
   // create order
   const newOrder = await createOrder(order);
+
+  // do not overuse
+  store.dispatch(clearCart());
 
   // redirect to order page
   return redirect(`/order/${newOrder.id}`); //http://localhost:5173/order/XB4113

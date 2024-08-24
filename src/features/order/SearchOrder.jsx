@@ -28,7 +28,7 @@ function SearchOrder() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="h-full w-36 rounded-full bg-yellow-100 px-2 py-1.5 placeholder:text-stone-500 focus:outline-none focus:ring focus:ring-yellow-600 focus:ring-opacity-20 focus:ring-offset-1 sm:w-64 md:w-72 lg:w-96"
+          className="h-full w-36 rounded-full bg-yellow-100 px-2 py-1.5 text-center placeholder:text-stone-500 focus:outline-none focus:ring focus:ring-yellow-600 focus:ring-opacity-20 focus:ring-offset-1 sm:w-64 md:w-72 lg:w-96"
         />
       </form>
     </div>

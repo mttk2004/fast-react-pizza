@@ -26,16 +26,16 @@ function Order() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 py-4">
         <h2 className="text-xl font-medium">Order #{id} status</h2>
 
-        <div className="space-x-2">
+        <div className="space-x-2 font-medium">
           {priority && (
-            <span className="text-2xs inline-block rounded-full bg-red-600 px-2.5 py-0.5 uppercase tracking-wider text-white">
+            <span className="inline-block rounded-full bg-red-600 px-2.5 py-0.5 text-2xs uppercase tracking-wider text-white">
               Priority
             </span>
           )}
-          <span className="text-2xs inline-block rounded-full bg-green-600 px-2.5 py-0.5 uppercase tracking-wider text-white">
+          <span className="inline-block rounded-full bg-green-600 px-2.5 py-0.5 text-2xs uppercase tracking-wider text-white">
             {status} order
           </span>
         </div>
@@ -54,7 +54,7 @@ function Order() {
 
       <ul className="divide-y divide-stone-300">
         {cart.map((item) => (
-          <OrderItem item={item} key={item.id} />
+          <OrderItem item={item} key={item.pizzaId} />
         ))}
       </ul>
 

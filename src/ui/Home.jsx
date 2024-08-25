@@ -6,8 +6,8 @@ function Home() {
   const name = useSelector((store) => store.user.name);
 
   return (
-    <div className="space-y-10 px-6 py-4 text-center sm:px-9 sm:py-6">
-      <h1 className="text-xl font-semibold text-stone-900 md:text-2xl">
+    <div className="space-y-10 px-6 py-4 text-center sm:px-9 sm:py-6 md:space-y-16 lg:space-y-24">
+      <h1 className="text-xl font-semibold text-stone-900 md:text-2xl lg:text-3xl">
         The best pizza.
         <br />
         <span className="le line font-bold uppercase tracking-wide text-yellow-600 [text-shadow:1px_1px_1px_#a16207]">
